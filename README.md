@@ -117,10 +117,15 @@ aws-analyzer/
 ├── config/                  # generated read-only IAM policies, example project rules
 ├── tools/                   # maintenance scripts (no AWS calls)
 ├── tests/                   # 340+ tests
-└── docs/HOW-IT-WORKS.md     # security model, pipeline, estimates, 3D map
+├── docs/HOW-IT-WORKS.md     # security model, pipeline, estimates, 3D map
+└── LICENSE                  # MIT
 ```
 
 ## Cost of running
 
 Inventory calls are free. CloudWatch metrics cost a few cents per scan (`--no-metrics` turns them off), and the optional
 `--cost-explorer` flag adds about $0.03.
+
+## License
+
+[MIT](LICENSE). The bundled three.js (used by the 3D map) is also MIT; see `viewer/vendor/LICENSE-three.txt`.
