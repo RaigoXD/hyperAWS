@@ -1,0 +1,55 @@
+# aws-analyzer configuration. Copy to config/analyzer.toml (that file is read automatically),
+# or pass --config PATH. Everything here is optional: delete what you do not need.
+# NOTE: the three sample [[rules]] at the bottom are EXAMPLES. Replace or delete them after copying,
+# otherwise they will override real tags (explicit rules win over tags).
+
+# --- thresholds used by the waste/rightsizing rules --------------------------------------------
+[thresholds]
+idle_cpu_avg = 5.0            # % CPU: a running instance is "idle" below this average ...
+idle_cpu_max = 20.0           # ... and below this peak, over the metrics window
+stopped_instance_days = 14    # flag instances stopped longer than this
+unattached_volume_days = 3    # ignore volumes younger than this (they may be mid-migration)
+old_snapshot_days = 90
+nat_idle_bytes = 1000000      # a NAT gateway that moved less than this over the window is "unused"
+stale_iam_days = 90
+min_insight_usd = 5.0         # hide aggregated insights worth less than this per month
+
+# --- assumptions behind "typical savings" insights (all approximate) ----------------------------
+[assumptions]
+nonprod_envs = ["dev", "staging", "test"]   # environments considered safe to schedule/downsize
+nonprod_schedule_saving = 0.65              # running 12h on weekdays only
+
+# --- how components are grouped into projects ---------------------------------------------------
+[projects]
+tag_keys = ["Project", "Application", "App", "Service", "Product", "Workload", "Team"]   # tried in order, case-insensitive
+env_tag_keys = ["Environment", "Env", "Stage"]
+use_stack_name = true         # CloudFormation stack name as a (low-confidence) project signal
+use_name_prefix = true        # infer projects from a shared name prefix across several resources
+min_prefix_group = 3
+
+# --- explicit rules: evaluated in order, first match wins, before any tag/name inference --------
+# Every key under [rules.match] must hold (AND); lists inside a key mean "any of" (OR).
+# Tag keys are case-insensitive; tag values accept * wildcards.
+
+[[rules]]
+project = "checkout"
+env = "prod"                  # optional: also sets the environment
+[rules.match]
+tags = { Team = "payments*" }
+
+[[rules]]                     # a second rule for the same project: rules are alternatives, keys inside one rule are all required
+project = "checkout"
+[rules.match]
+name_prefix = ["checkout-", "chk-"]     # any of these prefixes
+
+[[rules]]
+project = "data-platform"
+[rules.match]
+stack = "datalake-*"          # CloudFormation stack name (glob)
+regions = ["us-east-1"]
+
+[[rules]]
+project = "legacy-monolith"
+[rules.match]
+name_regex = "^(mono|legacy)-"
+services = ["ec2", "rds"]     # restrict to services (or full types like "ec2:instance")

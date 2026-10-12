@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "currency": "USD",
+    "base_region": "us-east-1",
+    "as_of": "2026-06",
+    "hours_per_month": 730,
+    "note": "Reference on-demand list prices for us-east-1, Linux, no discounts. Other regions use a coarse factor. These are ESTIMATES for prioritising work: they exclude usage charges (data transfer, requests, IOPS bursts, LCUs) and commercial licences. Use Cost Explorer (--cost-explorer) for real spend."
+  },
+  "region_factor": {
+    "default": 1.2,
+    "us-east-1": 1.0, "us-east-2": 1.0, "us-west-2": 1.0, "us-west-1": 1.15, "ca-central-1": 1.11,
+    "eu-west-1": 1.11, "eu-west-2": 1.16, "eu-west-3": 1.16, "eu-central-1": 1.2, "eu-north-1": 1.0, "eu-south-1": 1.14,
+    "ap-south-1": 1.05, "ap-southeast-1": 1.25, "ap-southeast-2": 1.25, "ap-northeast-1": 1.29, "ap-northeast-2": 1.23,
+    "sa-east-1": 1.59
+  },
+  "no_region_factor": ["ec2:eip", "kms:key", "route53:hosted-zone", "eks:cluster"],
+  "size_multiplier": {
+    "nano": 0.0625, "micro": 0.125, "small": 0.25, "medium": 0.5, "large": 1, "xlarge": 2, "2xlarge": 4, "3xlarge": 6,
+    "4xlarge": 8, "6xlarge": 12, "8xlarge": 16, "9xlarge": 18, "10xlarge": 20, "12xlarge": 24, "16xlarge": 32,
+    "18xlarge": 36, "24xlarge": 48, "32xlarge": 64
+  },
+  "ec2_large_hourly": {
+    "t2": 0.0928, "t3": 0.0832, "t3a": 0.0752, "t4g": 0.0672,
+    "m4": 0.10, "m5": 0.096, "m5a": 0.086, "m5n": 0.119, "m6i": 0.096, "m6a": 0.0864, "m6g": 0.077, "m6gd": 0.0904,
+    "m7i": 0.1008, "m7a": 0.11592, "m7g": 0.0816,
+    "c4": 0.10, "c5": 0.085, "c5a": 0.077, "c5n": 0.108, "c6i": 0.085, "c6a": 0.0765, "c6g": 0.068,
+    "c7i": 0.0893, "c7a": 0.10264, "c7g": 0.0725,
+    "r4": 0.133, "r5": 0.126, "r5a": 0.113, "r5n": 0.149, "r6i": 0.126, "r6a": 0.1134, "r6g": 0.1008,
+    "r7i": 0.1323, "r7a": 0.15225, "r7g": 0.1071,
+    "i3": 0.156, "i3en": 0.226, "i4i": 0.172, "z1d": 0.186
+  },
+  "rds_large_hourly": {
+    "mysql_postgres": {"db.t3": 0.136, "db.t4g": 0.129, "db.m5": 0.171, "db.m6g": 0.152, "db.m6i": 0.171, "db.r5": 0.240, "db.r6g": 0.216, "db.r6i": 0.240},
+    "aurora": {"db.t3": 0.146, "db.t4g": 0.146, "db.r5": 0.29, "db.r6g": 0.26, "db.r6i": 0.29}
+  },
+  "rds_storage_gb_month": {"gp2": 0.115, "gp3": 0.115, "io1": 0.125, "io2": 0.125, "standard": 0.10},
+  "rds_backup_gb_month": 0.095,
+  "rds_provisioned_iops_month": {"io1": 0.10, "io2": 0.10},
+  "aurora_serverless_v2_acu_hour": 0.12,
+  "elasticache_large_hourly": {"cache.t3": 0.136, "cache.t4g": 0.130, "cache.m5": 0.156, "cache.m6g": 0.149, "cache.m7g": 0.158, "cache.r5": 0.216, "cache.r6g": 0.206},
+  "ebs_gb_month": {"gp2": 0.10, "gp3": 0.08, "io1": 0.125, "io2": 0.125, "st1": 0.045, "sc1": 0.015, "standard": 0.05},
+  "ebs_gp3_extra": {"free_iops": 3000, "iops_month": 0.005, "free_throughput": 125, "throughput_month": 0.04},
+  "ebs_provisioned_iops_month": {"io1": 0.065, "io2": 0.065},
+  "snapshot_gb_month": 0.05,
+  "snapshot_stored_fraction": 0.5,
+  "public_ipv4_hour": 0.005,
+  "nat_hour": 0.045,
+  "nat_gb": 0.045,
+  "lb_hour": {"application": 0.0225, "network": 0.0225, "gateway": 0.0125, "classic": 0.025},
+  "vpc_endpoint_hour": 0.01,
+  "dynamodb": {"rcu_hour": 0.00013, "wcu_hour": 0.00065, "storage_gb_month": 0.25, "free_storage_gb": 25,
+               "ia_storage_gb_month": 0.10, "on_demand_read_million": 0.125, "on_demand_write_million": 0.625},
+  "s3_gb_month": {"standard": 0.023, "standard_ia": 0.0125, "onezone_ia": 0.01, "it_fa": 0.023, "it_ia": 0.0125,
+                  "glacier_ir": 0.004, "glacier": 0.0036, "deep_archive": 0.00099,
+                  "it_aia": 0.004, "it_aa": 0.0036, "it_daa": 0.00099, "reduced_redundancy": 0.024},
+  "fargate": {"x86": {"vcpu_hour": 0.04048, "gb_hour": 0.004445}, "arm": {"vcpu_hour": 0.03238, "gb_hour": 0.00356}},
+  "eks": {"control_plane_hour": 0.10, "extended_support_hour": 0.60},
+  "ecr_gb_month": 0.10,
+  "logs_gb_month": 0.03,
+  "kms_key_month": 1.0,
+  "route53_zone_month": 0.50,
+  "spot_price_fraction": 0.35,
+  "typical_discounts": {
+    "graviton": 0.20, "previous_gen": 0.10, "savings_plan_1yr_compute": 0.20, "rightsize_one_size": 0.50
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "aws-analyzer",
+  "owner": { "name": "OWNER" },
+  "metadata": {
+    "description": "Read-only AWS account analysis for Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "aws-analyzer",
+      "source": "./",
+      "description": "Read-only AWS account analyzer: inventory, project map, unused resources, cost savings and a 3D city map, in one offline HTML report. Never writes to AWS.",
+      "version": "1.0.0",
+      "category": "cloud",
+      "keywords": ["aws", "finops", "cost-optimization", "cloud-security", "read-only"]
+    }
+  ]
+}

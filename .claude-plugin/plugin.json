@@ -1,0 +1,9 @@
+{
+  "name": "aws-analyzer",
+  "version": "1.0.0",
+  "description": "Read-only AWS account analyzer: inventory, project map, unused resources, cost savings and a 3D city map of your systems, in one offline HTML report. Never writes to AWS.",
+  "author": { "name": "OWNER" },
+  "homepage": "https://github.com/OWNER/aws-analyzer",
+  "repository": "https://github.com/OWNER/aws-analyzer",
+  "keywords": ["aws", "finops", "cost-optimization", "cloud-security", "inventory", "read-only", "3d-map"]
+}
